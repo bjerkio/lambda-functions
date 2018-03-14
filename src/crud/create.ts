@@ -6,7 +6,7 @@ import { Service } from '../dynamodb/service';
 const service = new Service(process.env.TABLENAME, process.env.KEY_ID);
 const ret = new Return;
 
-module.exports = (event, context, callback) => {
+module.exports.handler = (event, context, callback) => {
   ret.cb(callback);
 
   const body = JSON.parse(event.body);
