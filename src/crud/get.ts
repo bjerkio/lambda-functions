@@ -6,7 +6,7 @@ import { Service } from '../dynamodb/service';
 const service = new Service(process.env.TABLENAME, process.env.KEY_ID);
 const ret = new Return;
 
-module.exports.handle = (event, context, callback) => {
+module.exports = (event, context, callback) => {
   ret.cb(callback);
 
   if(process.env.PERSONAL_RESOURCE){
@@ -14,7 +14,7 @@ module.exports.handle = (event, context, callback) => {
     service.setUserId(userId);
   }
 
-  const itemId: string = event.pathParameters.vehicleId;
+  const itemId: string = event.pathParameters[process.env.KEY_ID];
 
   service.get(itemId)
           .then(result => ret.parseData(result.Item));
