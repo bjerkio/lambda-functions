@@ -2,9 +2,13 @@
   "name": "lambda-functions",
   "version": "1.0.0",
   "description": "Typescript functions to work with Serverless and AWS Lambda",
-  "main": "lambdafunc.js",
+  "main": "dist/lambdafunc.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "typings": "dist",
+  "typescript": {
+    "definition": "dist"
   },
   "repository": {
     "type": "git",
@@ -21,5 +25,9 @@
     "lodash": "^4.17.5",
     "moment": "^2.21.0",
     "uuid": "^3.2.1"
+  },
+  "devDependencies": {
+    "typescript": "^2.7.2",
+    "@types/node": "^9.4.7"
   }
 }
