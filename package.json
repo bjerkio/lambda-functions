@@ -2,7 +2,7 @@
   "name": "lambda-functions",
   "version": "1.0.0",
   "description": "Typescript functions to work with Serverless and AWS Lambda",
-  "main": "index.js",
+  "main": "lambdafunc.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
