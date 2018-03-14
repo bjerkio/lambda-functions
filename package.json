@@ -15,5 +15,11 @@
   "bugs": {
     "url": "https://github.com/ayrnorge/lambda-functions/issues"
   },
-  "homepage": "https://github.com/ayrnorge/lambda-functions#readme"
+  "homepage": "https://github.com/ayrnorge/lambda-functions#readme",
+  "dependencies": {
+    "aws-sdk": "^2.209.0",
+    "lodash": "^4.17.5",
+    "moment": "^2.21.0",
+    "uuid": "^3.2.1"
+  }
 }
