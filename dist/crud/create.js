@@ -4,7 +4,7 @@ var return_1 = require("../api/return");
 var service_1 = require("../dynamodb/service");
 var service = new service_1.Service(process.env.TABLENAME, process.env.KEY_ID);
 var ret = new return_1.Return;
-module.exports = function (event, context, callback) {
+module.exports.handler = function (event, context, callback) {
     ret.cb(callback);
     var body = JSON.parse(event.body);
     if (process.env.PERSONAL_RESOURCE) {
