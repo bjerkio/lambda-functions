@@ -1,4 +1,4 @@
-import { Service } from './src/dynamodb/Service';
-import { Return } from './src/api/Return';
-import { CRUD } from './src/crud/crud';
+import { Service } from './dynamodb/Service';
+import { Return } from './api/Return';
+import { CRUD } from './crud/crud';
 export { Service, Return, CRUD };
