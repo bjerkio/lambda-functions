@@ -10,7 +10,7 @@
     "types" : ["node"]
   },
   "include": [
-    "lambdafunc.ts",
+    "main.ts",
     "src/**/*"
   ]
 }
