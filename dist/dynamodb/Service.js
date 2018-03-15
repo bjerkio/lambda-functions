@@ -16,6 +16,7 @@ var Service = /** @class */ (function () {
             .mapValues(this.removeEmptyObjects) // call only for object values
             .omitBy(_.isEmpty) // remove all empty objects
             .assign(_.omitBy(obj, _.isObject)) // assign back primitive values
+            .pickBy(_.identity)
             .value();
     };
     Service.prototype.setUserId = function (id) {
@@ -63,6 +64,7 @@ var Service = /** @class */ (function () {
             TableName: this.tableName,
             Item: resource
         };
+        console.log(resource);
         return new Promise(function (resolve, reject) {
             _this.client.put(params, function (err, result) {
                 if (err)
