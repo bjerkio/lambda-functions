@@ -23,6 +23,7 @@ export class Service {
       .mapValues(this.removeEmptyObjects) // call only for object values
       .omitBy(_.isEmpty) // remove all empty objects
       .assign(_.omitBy(obj, _.isObject)) // assign back primitive values
+      .pickBy(_.identity)
       .value();
   }
 
