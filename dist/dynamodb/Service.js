@@ -10,6 +10,14 @@ var Service = /** @class */ (function () {
         this.tableName = tableName;
         this.keyId = keyId;
     }
+    Service.prototype.removeEmptyObjects = function (obj) {
+        return _(obj)
+            .pickBy(_.isObject) // pick objects only
+            .mapValues(this.removeEmptyObjects) // call only for object values
+            .omitBy(_.isEmpty) // remove all empty objects
+            .assign(_.omitBy(obj, _.isObject)) // assign back primitive values
+            .value();
+    };
     Service.prototype.setUserId = function (id) {
         this.userId = id;
     };
@@ -44,6 +52,7 @@ var Service = /** @class */ (function () {
     };
     Service.prototype.create = function (resource) {
         var _this = this;
+        resource = this.removeEmptyObjects(resource);
         resource.createdAt = moment().toISOString();
         resource.updatedAt = moment().toISOString();
         resource[this.keyId] = uuid();
@@ -91,6 +100,7 @@ var Service = /** @class */ (function () {
         var _a;
     };
     Service.prototype.update = function (id, resource) {
+        resource = this.removeEmptyObjects(resource);
         var payload = _.reduce(resource, function (memo, value, key) {
             memo.ExpressionAttributeNames["#" + key] = key;
             memo.ExpressionAttributeValues[":" + key] = value;

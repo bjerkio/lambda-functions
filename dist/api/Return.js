@@ -25,7 +25,10 @@ var Return = /** @class */ (function () {
     };
     Return.prototype.error = function (message) {
         if (typeof message == 'object') {
-            this.data(message);
+            this.data({
+                status: 'failed',
+                error: message
+            });
         }
         if (message) {
             this.statusMessage = message;
