@@ -30,6 +30,11 @@ export class Return {
   }
 
   error(message:any) {
+
+    if(typeof message == 'object'){
+      this.body = message;
+    }
+
     if(message){
       this.statusMessage = message;
     } else if(!this.statusMessage) {
