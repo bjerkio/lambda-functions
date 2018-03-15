@@ -17,6 +17,15 @@ export class Service {
     this.keyId = keyId;
   }
 
+  removeEmptyObjects(obj) {
+    return _(obj)
+      .pickBy(_.isObject) // pick objects only
+      .mapValues(this.removeEmptyObjects) // call only for object values
+      .omitBy(_.isEmpty) // remove all empty objects
+      .assign(_.omitBy(obj, _.isObject)) // assign back primitive values
+      .value();
+  }
+
   setUserId(id: string) {
     this.userId = id;
   }
@@ -56,6 +65,8 @@ export class Service {
   }
 
   create(resource: any): Promise<any>{
+
+    resource = this.removeEmptyObjects(resource);
 
     resource.createdAt = moment().toISOString();
     resource.updatedAt = moment().toISOString();
@@ -113,6 +124,8 @@ export class Service {
   }
 
   update(id: string, resource: any): Promise<any>{
+
+    resource = this.removeEmptyObjects(resource);
 
     const payload = _.reduce(resource, (memo, value, key) => {
       memo.ExpressionAttributeNames[`#${key}`] = key
