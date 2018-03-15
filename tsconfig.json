@@ -11,6 +11,8 @@
   },
   "include": [
     "main.ts",
-    "src/**/*"
+    "api/*",
+    "crud/*",
+    "dynamodb/*"
   ]
 }
