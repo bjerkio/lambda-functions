@@ -83,8 +83,6 @@ export class Service {
       Item: resource
     };
 
-    console.log(resource);
-
     return new Promise((resolve, reject) => {
       this.client.put(params, (err, result) => {
         if(err) return reject(err);

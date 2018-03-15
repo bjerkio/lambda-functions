@@ -64,7 +64,6 @@ var Service = /** @class */ (function () {
             TableName: this.tableName,
             Item: resource
         };
-        console.log(resource);
         return new Promise(function (resolve, reject) {
             _this.client.put(params, function (err, result) {
                 if (err)
