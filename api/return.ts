@@ -32,7 +32,7 @@ export class Return {
   error(message:any) {
 
     if(typeof message == 'object'){
-      this.body = message;
+      this.data(message);
     }
 
     if(message){
