@@ -32,7 +32,10 @@ export class Return {
   error(message:any) {
 
     if(typeof message == 'object'){
-      this.data(message);
+      this.data({
+        status: 'failed',
+        error: message
+      });
     }
 
     if(message){
