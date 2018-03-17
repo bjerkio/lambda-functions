@@ -92,7 +92,7 @@ export class Service {
   }
 
   list(): Promise<any>{
-    const params: DynamoDB.Types.DocumentClient.ScanInput = {
+    let params: DynamoDB.Types.DocumentClient.ScanInput = {
       TableName: this.tableName
     };
 
@@ -108,7 +108,7 @@ export class Service {
   }
 
   delete(id: string): Promise<any> {
-    const params: DynamoDB.Types.DocumentClient.DeleteItemInput = {
+    let params: DynamoDB.Types.DocumentClient.DeleteItemInput = {
       TableName: this.tableName,
       Key: {
         [this.keyId]: id
@@ -128,7 +128,7 @@ export class Service {
 
     resource = this.removeEmptyObjects(resource);
 
-    const payload = _.reduce(resource, (memo, value, key) => {
+    let payload = _.reduce(resource, (memo, value, key) => {
       memo.ExpressionAttributeNames[`#${key}`] = key
       memo.ExpressionAttributeValues[`:${key}`] = value
       memo.UpdateExpression.push(`#${key} = :${key}`)
