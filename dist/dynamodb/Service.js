@@ -7,9 +7,13 @@ var _ = require("lodash");
 var Service = /** @class */ (function () {
     function Service(tableName, keyId) {
         this.client = new aws_sdk_1.DynamoDB.DocumentClient();
+        this.debug = false;
         this.tableName = tableName;
         this.keyId = keyId;
     }
+    Service.prototype.debugOn = function () {
+        this.debug = true;
+    };
     Service.prototype.removeEmptyObjects = function (obj) {
         return _(obj)
             .pickBy(_.isObject) // pick objects only
@@ -36,6 +40,9 @@ var Service = /** @class */ (function () {
             },
             FilterExpression: '#userId = :userId'
         };
+        if (this.debug) {
+            console.log(params);
+        }
         return this.client.query(params).promise();
     };
     Service.prototype.get = function (id) {
@@ -48,6 +55,9 @@ var Service = /** @class */ (function () {
                 _a[this.keyId] = id,
                 _a)
         };
+        if (this.debug) {
+            console.log(params);
+        }
         return this.client.get(params).promise();
         var _a;
     };
@@ -64,6 +74,9 @@ var Service = /** @class */ (function () {
             TableName: this.tableName,
             Item: resource
         };
+        if (this.debug) {
+            console.log(params);
+        }
         return new Promise(function (resolve, reject) {
             _this.client.put(params, function (err, result) {
                 if (err)
@@ -83,6 +96,9 @@ var Service = /** @class */ (function () {
             params.ExpressionAttributeValues[':userId'] = this.userId;
             params.FilterExpression = '#userId = :userId';
         }
+        if (this.debug) {
+            console.log(params);
+        }
         return this.client.scan(params).promise();
     };
     Service.prototype.delete = function (id) {
@@ -98,6 +114,9 @@ var Service = /** @class */ (function () {
             params.ExpressionAttributeNames['#userId'] = 'userId';
             params.ExpressionAttributeValues[':userId'] = this.userId;
             params.ConditionExpression = '#userId = :userId';
+        }
+        if (this.debug) {
+            console.log(params);
         }
         return this.client.delete(params).promise();
         var _a;
@@ -126,6 +145,9 @@ var Service = /** @class */ (function () {
             payload.ConditionExpression = '#userId = :userId';
         }
         payload.UpdateExpression = 'SET ' + payload.UpdateExpression.join(', ');
+        if (this.debug) {
+            console.log(payload);
+        }
         return this.client.update(payload).promise();
         var _a;
     };

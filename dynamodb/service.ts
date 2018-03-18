@@ -12,9 +12,16 @@ export class Service {
 
   userId: string;
 
+
+  debug = false;
+
   constructor(tableName: string, keyId: string){
     this.tableName = tableName;
     this.keyId = keyId;
+  }
+
+  debugOn(){
+    this.debug = true;
   }
 
   removeEmptyObjects(obj) {
@@ -46,6 +53,7 @@ export class Service {
       FilterExpression: '#userId = :userId'
     };
 
+    if(this.debug){ console.log(params); }
     return this.client.query(params).promise();
   }
 
@@ -62,6 +70,7 @@ export class Service {
       }
     };
 
+    if(this.debug){ console.log(params); }
     return this.client.get(params).promise();
   }
 
@@ -82,6 +91,8 @@ export class Service {
       TableName: this.tableName,
       Item: resource
     };
+
+    if(this.debug){ console.log(params); }
 
     return new Promise((resolve, reject) => {
       this.client.put(params, (err, result) => {
@@ -104,6 +115,8 @@ export class Service {
       params.FilterExpression = '#userId = :userId';
     }
 
+    if(this.debug){ console.log(params); }
+
     return this.client.scan(params).promise();
   }
 
@@ -122,6 +135,8 @@ export class Service {
       params.ExpressionAttributeValues[':userId'] = this.userId;
       params.ConditionExpression = '#userId = :userId';
     }
+
+    if(this.debug){ console.log(params); }
 
     return this.client.delete(params).promise();
   }
@@ -154,6 +169,8 @@ export class Service {
     }
 
     payload.UpdateExpression = 'SET ' + payload.UpdateExpression.join(', ')
+
+    if(this.debug){ console.log(payload); }
 
     return this.client.update(payload).promise();
   }
