@@ -93,6 +93,8 @@ var Service = /** @class */ (function () {
                 _a)
         };
         if (this.userId) {
+            params.ExpressionAttributeNames = {};
+            params.ExpressionAttributeValues = {};
             params.ExpressionAttributeNames['#userId'] = 'userId';
             params.ExpressionAttributeValues[':userId'] = this.userId;
             params.ConditionExpression = '#userId = :userId';
