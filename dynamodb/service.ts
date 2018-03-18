@@ -116,6 +116,8 @@ export class Service {
     }
 
     if(this.userId){
+      params.ExpressionAttributeNames = {};
+      params.ExpressionAttributeValues = {};
       params.ExpressionAttributeNames['#userId'] = 'userId';
       params.ExpressionAttributeValues[':userId'] = this.userId;
       params.ConditionExpression = '#userId = :userId';
