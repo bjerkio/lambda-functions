@@ -3,7 +3,9 @@ export declare class Service {
     tableName: string;
     keyId: string;
     userId: string;
+    debug: boolean;
     constructor(tableName: string, keyId: string);
+    debugOn(): void;
     removeEmptyObjects(obj: any): any;
     setUserId(id: string): void;
     getByUser(id: string, userId: string): Promise<any>;

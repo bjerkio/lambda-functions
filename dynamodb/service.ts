@@ -12,9 +12,16 @@ export class Service {
 
   userId: string;
 
+
+  debug = false;
+
   constructor(tableName: string, keyId: string){
     this.tableName = tableName;
     this.keyId = keyId;
+  }
+
+  debugOn(){
+    this.debug = true;
   }
 
   removeEmptyObjects(obj) {
@@ -23,6 +30,7 @@ export class Service {
       .mapValues(this.removeEmptyObjects) // call only for object values
       .omitBy(_.isEmpty) // remove all empty objects
       .assign(_.omitBy(obj, _.isObject)) // assign back primitive values
+      .pickBy(_.identity)
       .value();
   }
 
@@ -45,6 +53,7 @@ export class Service {
       FilterExpression: '#userId = :userId'
     };
 
+    if(this.debug){ console.log(params); }
     return this.client.query(params).promise();
   }
 
@@ -77,6 +86,7 @@ export class Service {
       }
     };
 
+    if(this.debug){ console.log(params); }
     return this.client.get(params).promise();
   }
 
@@ -98,6 +108,8 @@ export class Service {
       Item: resource
     };
 
+    if(this.debug){ console.log(params); }
+
     return new Promise((resolve, reject) => {
       this.client.put(params, (err, result) => {
         if(err) return reject(err);
@@ -107,7 +119,7 @@ export class Service {
   }
 
   list(): Promise<any>{
-    const params: DynamoDB.Types.DocumentClient.ScanInput = {
+    let params: DynamoDB.Types.DocumentClient.ScanInput = {
       TableName: this.tableName
     };
 
@@ -119,11 +131,13 @@ export class Service {
       params.FilterExpression = '#userId = :userId';
     }
 
+    if(this.debug){ console.log(params); }
+
     return this.client.scan(params).promise();
   }
 
   delete(id: string): Promise<any> {
-    const params: DynamoDB.Types.DocumentClient.DeleteItemInput = {
+    let params: DynamoDB.Types.DocumentClient.DeleteItemInput = {
       TableName: this.tableName,
       Key: {
         [this.keyId]: id
@@ -131,10 +145,14 @@ export class Service {
     }
 
     if(this.userId){
+      params.ExpressionAttributeNames = {};
+      params.ExpressionAttributeValues = {};
       params.ExpressionAttributeNames['#userId'] = 'userId';
       params.ExpressionAttributeValues[':userId'] = this.userId;
       params.ConditionExpression = '#userId = :userId';
     }
+
+    if(this.debug){ console.log(params); }
 
     return this.client.delete(params).promise();
   }
@@ -143,7 +161,7 @@ export class Service {
 
     resource = this.removeEmptyObjects(resource);
 
-    const payload = _.reduce(resource, (memo, value, key) => {
+    let payload = _.reduce(resource, (memo, value, key) => {
       memo.ExpressionAttributeNames[`#${key}`] = key
       memo.ExpressionAttributeValues[`:${key}`] = value
       memo.UpdateExpression.push(`#${key} = :${key}`)
@@ -167,6 +185,8 @@ export class Service {
     }
 
     payload.UpdateExpression = 'SET ' + payload.UpdateExpression.join(', ')
+
+    if(this.debug){ console.log(payload); }
 
     return this.client.update(payload).promise();
   }
