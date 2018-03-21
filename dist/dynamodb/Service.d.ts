@@ -7,6 +7,7 @@ export declare class Service {
     removeEmptyObjects(obj: any): any;
     setUserId(id: string): void;
     getByUser(id: string, userId: string): Promise<any>;
+    getByIndex(id: any, indexName: any): Promise<any>;
     get(id: string): Promise<any>;
     create(resource: any): Promise<any>;
     list(): Promise<any>;

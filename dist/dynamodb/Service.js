@@ -37,6 +37,20 @@ var Service = /** @class */ (function () {
         };
         return this.client.query(params).promise();
     };
+    Service.prototype.getByIndex = function (id, indexName) {
+        var params = {
+            TableName: this.tableName,
+            IndexName: indexName,
+            KeyConditionExpression: '#id = :id',
+            ExpressionAttributeNames: {
+                '#id': this.keyId
+            },
+            ExpressionAttributeValues: {
+                ':id': id
+            }
+        };
+        return this.client.query(params).promise();
+    };
     Service.prototype.get = function (id) {
         if (this.userId) {
             return this.getByUser(id, this.userId);

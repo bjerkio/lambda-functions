@@ -48,6 +48,22 @@ export class Service {
     return this.client.query(params).promise();
   }
 
+  getByIndex(id, indexName): Promise<any> {
+    const params: DynamoDB.Types.DocumentClient.QueryInput = {
+      TableName: this.tableName,
+      IndexName: indexName,
+      KeyConditionExpression: '#id = :id',
+      ExpressionAttributeNames: {
+        '#id': this.keyId
+      },
+      ExpressionAttributeValues: {
+        ':id': id
+      }
+    };
+
+    return this.client.query(params).promise();
+  }
+
   get(id: string): Promise<any> {
 
     if(this.userId){
