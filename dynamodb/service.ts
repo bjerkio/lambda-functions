@@ -70,6 +70,8 @@ export class Service {
       }
     };
 
+    if(this.debug){ console.log(params); }
+
     return this.client.query(params).promise();
   }
 

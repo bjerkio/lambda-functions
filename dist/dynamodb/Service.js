@@ -57,6 +57,9 @@ var Service = /** @class */ (function () {
                 ':id': id
             }
         };
+        if (this.debug) {
+            console.log(params);
+        }
         return this.client.query(params).promise();
     };
     Service.prototype.get = function (id) {
