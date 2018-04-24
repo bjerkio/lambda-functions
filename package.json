@@ -1,10 +1,17 @@
 {
   "name": "lambda-functions",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "Typescript functions to work with Serverless and AWS Lambda",
   "main": "dist/main.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "check": "gts check",
+    "clean": "gts clean",
+    "compile": "tsc -p .",
+    "fix": "gts fix",
+    "prepare": "npm run compile",
+    "pretest": "npm run compile",
+    "posttest": "npm run check"
   },
   "typings": "dist/",
   "typescript": {
@@ -27,7 +34,8 @@
     "uuid": "^3.2.1"
   },
   "devDependencies": {
-    "typescript": "^2.7.2",
-    "@types/node": "^9.4.7"
+    "typescript": "~2.6.1",
+    "@types/node": "^9.4.7",
+    "gts": "^0.5.4"
   }
 }

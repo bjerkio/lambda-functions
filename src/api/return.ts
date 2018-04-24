@@ -59,7 +59,6 @@ export class Return {
       });
     }
 
-    // TODO: Make CORS headers a selected feature.
     let returnObject = {
       statusCode: this.statusCode,
       headers: {
@@ -70,7 +69,7 @@ export class Return {
     };
 
     if(this.callbackFunction){
-      this.callbackFunction(null, returnObject);
+      return this.callbackFunction(null, returnObject);
     } else {
       return returnObject;
     }

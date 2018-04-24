@@ -1,18 +1,16 @@
 {
+  "extends": "./node_modules/gts/tsconfig-google.json",
   "compilerOptions": {
-    "lib": ["es6", "es2015"],
-    "module": "commonjs",
-    "target": "es5",
-    "moduleResolution": "node",
-    "declaration": true,
-    "rootDir": "./",
-    "outDir": "dist",
-    "types" : ["node"]
+    "rootDir": ".",
+    "outDir": "build"
   },
   "include": [
-    "main.ts",
-    "api/*",
-    "crud/*",
-    "dynamodb/*"
+    "src/*.ts",
+    "src/**/*.ts",
+    "test/*.ts",
+    "test/**/*.ts"
+  ],
+  "exclude": [
+    "node_modules"
   ]
 }
