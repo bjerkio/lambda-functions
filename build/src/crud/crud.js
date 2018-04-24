@@ -12,3 +12,4 @@ exports.CRUD = {
     List: List,
     Update: Update
 };
+//# sourceMappingURL=crud.js.map

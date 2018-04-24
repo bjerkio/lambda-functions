@@ -10,7 +10,7 @@ module.exports.handler = function (event, context, callback) {
         var userId = event.requestContext.authorizer.principalId;
         service.setUserId(userId);
     }
-    var itemId = event.pathParameters[process.env.KEY_ID];
-    service.delete(itemId)
-        .then(function (result) { return ret.parseData(result); });
+    service.list()
+        .then(function (result) { return ret.parseData(result.Items); });
 };
+//# sourceMappingURL=list.js.map

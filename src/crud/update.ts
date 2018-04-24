@@ -3,10 +3,10 @@
 import { Return } from '../api/return';
 import { Service } from '../dynamodb/service';
 
-const service = new Service(process.env.TABLENAME, process.env.KEY_ID);
+const service = new Service((<any> process).env.TABLENAME, (<any> process).env.KEY_ID);
 const ret = new Return;
 
-module.exports.handler = (event, context, callback) => {
+module.exports.handler = (event: any, context: any, callback: any) => {
   ret.cb(callback);
 
   const body = JSON.parse(event.body);
@@ -16,7 +16,7 @@ module.exports.handler = (event, context, callback) => {
     service.setUserId(userId);
   }
 
-  const itemId: string = event.pathParameters[process.env.KEY_ID];
+  const itemId: string = event.pathParameters[(<any> process).env.KEY_ID];
 
   service.update(itemId, event.body)
           .then(result => ret.parseData(result));

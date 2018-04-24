@@ -7,6 +7,7 @@ var _ = require("lodash");
 var Service = /** @class */ (function () {
     function Service(tableName, keyId) {
         this.client = new aws_sdk_1.DynamoDB.DocumentClient();
+        this.userId = '';
         this.debug = false;
         this.tableName = tableName;
         this.keyId = keyId;
@@ -171,3 +172,4 @@ var Service = /** @class */ (function () {
     return Service;
 }());
 exports.Service = Service;
+//# sourceMappingURL=service.js.map

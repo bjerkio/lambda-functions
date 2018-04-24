@@ -3,10 +3,10 @@
 import { Return } from '../api/return';
 import { Service } from '../dynamodb/service';
 
-const service = new Service(process.env.TABLENAME, process.env.KEY_ID);
+const service = new Service((<any> process).env.TABLENAME, (<any> process).env.KEY_ID);
 const ret = new Return;
 
-module.exports.handler = (event, context, callback) => {
+module.exports.handler = (event: any, context: any, callback: any) => {
   ret.cb(callback);
 
   if(process.env.PERSONAL_RESOURCE){
@@ -15,5 +15,5 @@ module.exports.handler = (event, context, callback) => {
   }
 
   service.list()
-          .then(result => ret.parseData(result.Items));
+          .then((result: any) => ret.parseData(result.Items));
 }

@@ -10,7 +10,7 @@ export class Service {
   tableName: string;
   keyId: string;
 
-  userId: string;
+  userId: string = '';
 
 
   debug = false;
@@ -24,7 +24,7 @@ export class Service {
     this.debug = true;
   }
 
-  removeEmptyObjects(obj) {
+  removeEmptyObjects(obj: any): any {
     return _(obj)
       .pickBy(_.isObject) // pick objects only
       .mapValues(this.removeEmptyObjects) // call only for object values
@@ -57,7 +57,7 @@ export class Service {
     return this.client.query(params).promise();
   }
 
-  getByIndex(id, indexName): Promise<any> {
+  getByIndex(id: any, indexName: any): Promise<any> {
     const params: DynamoDB.Types.DocumentClient.QueryInput = {
       TableName: this.tableName,
       IndexName: indexName,
@@ -163,7 +163,7 @@ export class Service {
 
     resource = this.removeEmptyObjects(resource);
 
-    let payload = _.reduce(resource, (memo, value, key) => {
+    let payload = _.reduce(resource, (memo: any, value, key) => {
       memo.ExpressionAttributeNames[`#${key}`] = key
       memo.ExpressionAttributeValues[`:${key}`] = value
       memo.UpdateExpression.push(`#${key} = :${key}`)

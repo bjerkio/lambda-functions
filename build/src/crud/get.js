@@ -14,3 +14,4 @@ module.exports.handler = function (event, context, callback) {
     service.get(itemId)
         .then(function (result) { return ret.parseData(result.Item); });
 };
+//# sourceMappingURL=get.js.map

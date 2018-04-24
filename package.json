@@ -1,8 +1,9 @@
 {
   "name": "lambda-functions",
-  "version": "1.0.7",
+  "version": "1.1.0",
   "description": "Typescript functions to work with Serverless and AWS Lambda",
-  "main": "dist/main.js",
+  "main": "build/src/main.js",
+  "types": "build/src/main.d.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "check": "gts check",
@@ -13,10 +14,14 @@
     "pretest": "npm run compile",
     "posttest": "npm run check"
   },
-  "typings": "dist/",
-  "typescript": {
-    "definition": "dist/"
-  },
+  "files": [
+    "CHANGELOG.md",
+    "LICENSE",
+    "README.md",
+    "build/src",
+    "tsconfig.json",
+    "tslint.json"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/ayrnorge/lambda-functions.git"
@@ -34,8 +39,10 @@
     "uuid": "^3.2.1"
   },
   "devDependencies": {
-    "typescript": "~2.6.1",
+    "@types/lodash": "^4.14.107",
     "@types/node": "^9.4.7",
-    "gts": "^0.5.4"
+    "@types/uuid": "^3.4.3",
+    "gts": "^0.5.4",
+    "typescript": "~2.6.1"
   }
 }

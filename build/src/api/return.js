@@ -47,7 +47,6 @@ var Return = /** @class */ (function () {
                 message: this.statusMessage
             });
         }
-        // TODO: Make CORS headers a selected feature.
         var returnObject = {
             statusCode: this.statusCode,
             headers: {
@@ -57,7 +56,7 @@ var Return = /** @class */ (function () {
             body: this.body
         };
         if (this.callbackFunction) {
-            this.callbackFunction(null, returnObject);
+            return this.callbackFunction(null, returnObject);
         }
         else {
             return returnObject;
@@ -66,3 +65,4 @@ var Return = /** @class */ (function () {
     return Return;
 }());
 exports.Return = Return;
+//# sourceMappingURL=return.js.map

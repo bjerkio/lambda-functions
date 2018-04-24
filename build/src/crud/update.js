@@ -11,6 +11,8 @@ module.exports.handler = function (event, context, callback) {
         var userId = event.requestContext.authorizer.principalId;
         service.setUserId(userId);
     }
-    service.create(body)
-        .then(function (result) { return ret.parseData(result.Item); });
+    var itemId = event.pathParameters[process.env.KEY_ID];
+    service.update(itemId, event.body)
+        .then(function (result) { return ret.parseData(result); });
 };
+//# sourceMappingURL=update.js.map
