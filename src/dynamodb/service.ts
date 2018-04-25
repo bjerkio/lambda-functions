@@ -20,11 +20,22 @@ export class Service {
     this.keyId = keyId;
   }
 
+  setLocalDb(){
+    this.client = new DynamoDB.DocumentClient({
+      endpoint: 'http://localhost:8000',
+      region: 'local'
+    });
+  }
+
   debugOn(){
     this.debug = true;
   }
 
   removeEmptyObjects(obj: any): any {
+    if(typeof obj === 'undefined'){
+      return;
+    }
+    
     return _(obj)
       .pickBy(_.isObject) // pick objects only
       .mapValues(this.removeEmptyObjects) // call only for object values
@@ -163,6 +174,8 @@ export class Service {
 
     resource = this.removeEmptyObjects(resource);
 
+    delete resource[this.keyId];
+
     let payload = _.reduce(resource, (memo: any, value, key) => {
       memo.ExpressionAttributeNames[`#${key}`] = key
       memo.ExpressionAttributeValues[`:${key}`] = value
@@ -177,7 +190,6 @@ export class Service {
       UpdateExpression: [],
       ExpressionAttributeNames: {},
       ExpressionAttributeValues: {},
-      ConditionExpression: {}
     });
 
     if(this.userId){
