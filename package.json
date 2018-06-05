@@ -1,6 +1,6 @@
 {
   "name": "lambda-functions",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "Typescript functions to work with Serverless and AWS Lambda",
   "main": "build/src/main.js",
   "types": "build/src/main.d.ts",
@@ -35,6 +35,7 @@
   "dependencies": {
     "aws-sdk": "^2.209.0",
     "lodash": "^4.17.5",
+    "lodash-clean": "^2.0.1",
     "moment": "^2.21.0",
     "uuid": "^3.2.1"
   },

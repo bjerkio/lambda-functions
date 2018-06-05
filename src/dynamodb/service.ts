@@ -2,10 +2,11 @@ import { DynamoDB } from 'aws-sdk';
 import * as moment from 'moment';
 import * as uuid from 'uuid/v1';
 import * as _ from 'lodash';
+import clean from 'lodash-clean'
 
 export class Service {
 
-  private client: DynamoDB.DocumentClient = new DynamoDB.DocumentClient();
+  client: DynamoDB.DocumentClient = new DynamoDB.DocumentClient();
 
   tableName: string;
   keyId: string;
@@ -22,16 +23,6 @@ export class Service {
 
   debugOn(){
     this.debug = true;
-  }
-
-  removeEmptyObjects(obj: any): any {
-    return _(obj)
-      .pickBy(_.isObject) // pick objects only
-      .mapValues(this.removeEmptyObjects) // call only for object values
-      .omitBy(_.isEmpty) // remove all empty objects
-      .assign(_.omitBy(obj, _.isObject)) // assign back primitive values
-      .pickBy(_.identity)
-      .value();
   }
 
   setUserId(id: string) {
@@ -94,7 +85,7 @@ export class Service {
 
   create(resource: any): Promise<any>{
 
-    resource = this.removeEmptyObjects(resource);
+    resource = clean(resource);
 
     resource.createdAt = moment().toISOString();
     resource.updatedAt = moment().toISOString();
@@ -161,7 +152,7 @@ export class Service {
 
   update(id: string, resource: any): Promise<any>{
 
-    resource = this.removeEmptyObjects(resource);
+    resource = clean(resource);
 
     let payload = _.reduce(resource, (memo: any, value, key) => {
       memo.ExpressionAttributeNames[`#${key}`] = key
