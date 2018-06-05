@@ -21,6 +21,13 @@ export class Service {
     this.keyId = keyId;
   }
 
+  setLocalDb(){
+    this.client = new DynamoDB.DocumentClient({
+      endpoint: 'http://localhost:8000',
+      region: 'local'
+    });
+  }
+
   debugOn(){
     this.debug = true;
   }
@@ -154,6 +161,8 @@ export class Service {
 
     resource = clean(resource);
 
+    delete resource[this.keyId];
+
     let payload = _.reduce(resource, (memo: any, value, key) => {
       memo.ExpressionAttributeNames[`#${key}`] = key
       memo.ExpressionAttributeValues[`:${key}`] = value
@@ -168,7 +177,6 @@ export class Service {
       UpdateExpression: [],
       ExpressionAttributeNames: {},
       ExpressionAttributeValues: {},
-      ConditionExpression: {}
     });
 
     if(this.userId){
