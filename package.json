@@ -27,7 +27,7 @@
     "uuid": "^3.2.1"
   },
   "devDependencies": {
-    "typescript": "^2.7.2",
-    "@types/node": "^9.4.7"
+    "typescript": "^3.5.3",
+    "@types/node": "^12.7.2"
   }
 }
