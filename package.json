@@ -2,24 +2,18 @@
   "name": "lambda-functions",
   "version": "1.0.6",
   "description": "Typescript functions to work with Serverless and AWS Lambda",
-  "main": "dist/main.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "typings": "dist/",
-  "typescript": {
-    "definition": "dist/"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/ayrnorge/lambda-functions.git"
-  },
-  "author": "Simen A. W. Olsen <so@ayr.no>",
-  "license": "GPL-3.0",
+  "homepage": "https://github.com/ayrnorge/lambda-functions#readme",
   "bugs": {
     "url": "https://github.com/ayrnorge/lambda-functions/issues"
   },
-  "homepage": "https://github.com/ayrnorge/lambda-functions#readme",
+  "repository": "github:bjerkio/lambda-functions",
+  "license": "GPL-3.0",
+  "author": "Simen A. W. Olsen <so@ayr.no>",
+  "main": "dist/main.js",
+  "typings": "dist/",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
   "dependencies": {
     "aws-sdk": "^2.209.0",
     "lodash": "^4.17.5",
@@ -27,7 +21,10 @@
     "uuid": "^3.2.1"
   },
   "devDependencies": {
-    "typescript": "^2.7.2",
-    "@types/node": "^9.4.7"
+    "@types/node": "^9.4.7",
+    "typescript": "^2.7.2"
+  },
+  "typescript": {
+    "definition": "dist/"
   }
 }
